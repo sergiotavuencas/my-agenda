@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "281894808260",
+    "project_id": "my-agenda-59a2f",
+    "storage_bucket": "my-agenda-59a2f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281894808260:android:534ebc084b5e175b337791",
+        "android_client_info": {
+          "package_name": "com.facens.my_agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281894808260-91v0mjd9q2hr4utrj5g7dktd14cileqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.facens.my_agenda",
+            "certificate_hash": "b2b97636147c1bede4541f383eba9b6a62ebf2e6"
+          }
+        },
+        {
+          "client_id": "281894808260-als1vr46bjo9vcalfrn37qe5l4i51eh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfLfbrIh9_hmPqjA9QGI4VtaHmSfbLazw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281894808260-als1vr46bjo9vcalfrn37qe5l4i51eh2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "281894808260-3i4egtoligardvihah7nh5i9acqi77n2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.facens.my-agenda"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
