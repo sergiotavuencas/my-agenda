@@ -15,29 +15,34 @@ class OpeningView extends StatefulWidget {
 class OpeningViewState extends State<OpeningView> {
   List<Color> appColors = AppColors().colors;
 
-  final logo = Image.asset(
-    "assets/MyAgenda.png",
-    height: 200,
-    width: 200,
-  );
-
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Widget build(BuildContext context) {
+    final logo = Material(
+      elevation: 20,
+      borderRadius: BorderRadius.circular(90),
+      color: Colors.transparent,
+      child: Image.asset(
+        "assets/MyAgenda.png",
+        height: 200,
+        width: 200,
+      ),
+    );
+
     final emailLoginButton = Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
+      elevation: 10,
+      borderRadius: BorderRadius.circular(30),
       color: appColors[4],
       child: MaterialButton(
-        minWidth: 225,
+        minWidth: 230,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
             Text(
               "Login with e-mail",
               textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -56,18 +61,18 @@ class OpeningViewState extends State<OpeningView> {
     );
 
     final googleLoginButton = Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
+      elevation: 10,
+      borderRadius: BorderRadius.circular(30),
       color: Colors.black,
       child: MaterialButton(
-        minWidth: 225,
+        minWidth: 230,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
             Text(
               "Login with Google",
               textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -83,7 +88,7 @@ class OpeningViewState extends State<OpeningView> {
           try {
             User user = await GoogleAuthentication.signInWithGoogle();
 
-            if(user != null) {
+            if (user != null) {
               Navigator.of(context).pushNamed(AppRoutes.menu);
             }
           } catch (e) {
@@ -106,7 +111,7 @@ class OpeningViewState extends State<OpeningView> {
                     padding: EdgeInsets.only(top: 50),
                     child: Text(
                       "Welcome to",
-                      style: GoogleFonts.roboto(
+                      style: GoogleFonts.robotoSlab(
                         fontSize: 50,
                         color: Colors.white,
                       ),

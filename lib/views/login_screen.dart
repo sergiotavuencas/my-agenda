@@ -142,7 +142,7 @@ class _LoginViewState extends State<LoginScreen> {
             MaterialButton(
               onPressed: () {
                 print("Login screen");
-                Navigator.of(context).pushNamed(AppRoutes.register);
+                Navigator.of(context).pushNamed(AppRoutes.register_user);
               },
               child: Text(
                 "Sign Up",
