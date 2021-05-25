@@ -88,11 +88,22 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
       ),
     );
 
-    final weekDayField = Container(
+    final weekDayField = Material(
+      borderRadius: BorderRadius.circular(10),
+      color: AppColors().colors[2],
+      child: Container(
         width: 325,
+        height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: EdgeInsets.only(right: 40),
+              child: Text(
+                  "Week Day",
+                  style: GoogleFonts.robotoSlab(fontSize: 25, color: Colors.white),
+                ),
+            ),
             DropdownButton(
               dropdownColor: AppColors().colors[2],
               value: weekDay,
@@ -113,6 +124,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
             )
           ],
         )
+      ),
     );
 
     final meetingLinkField = Container(
@@ -149,19 +161,24 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
 
     final timeField = Material(
       borderRadius: BorderRadius.circular(10),
-      color: Colors.transparent,
+      color: AppColors().colors[2],
       child: Row(
         children: <Widget>[
-          MaterialButton(
-              minWidth: 100,
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: MaterialButton(
+              minWidth: 50,
               height: 50,
-              color: AppColors().colors[2],
+              color: AppColors().colors[5],
               child: Icon(FontAwesomeIcons.clock, color: Colors.white),
               onPressed: () {
                 selectTime(context);
-              }),
+              }
+            ),
+          ),
           Container(
-              width: 200,
+              width: 255,
+              height: 60,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
