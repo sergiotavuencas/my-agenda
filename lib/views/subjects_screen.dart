@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/routes.dart';
 import 'package:my_agenda/theme/app_colors.dart';
@@ -12,8 +11,6 @@ class SubjectsScreen extends StatefulWidget {
 }
 
 class _SubjectsViewState extends State<SubjectsScreen> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
 
   String _collection;
@@ -30,7 +27,7 @@ class _SubjectsViewState extends State<SubjectsScreen> {
                 child: Material(
                   elevation: 10,
                   borderRadius: BorderRadius.circular(80),
-                  color: appColors[2],
+                  color: AppColors().colors[2],
                   child: Container(
                     width: 230,
                     padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -53,7 +50,7 @@ class _SubjectsViewState extends State<SubjectsScreen> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 15),
-                          child: Text(
+                          child: SelectableText(
                             doc["meetingLink"],
                             style: GoogleFonts.robotoSlab(
                               fontSize: 20,
@@ -75,7 +72,21 @@ class _SubjectsViewState extends State<SubjectsScreen> {
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) return new Text("No documents");
+              if (!snapshot.hasData) {
+                return new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Searching...",
+                      style: GoogleFonts.robotoSlab(
+                        fontSize: 30,
+                        color: Colors.white
+                      ),
+                    )
+                  ],
+                );
+              }
               return new ListView(children: getListItems(snapshot));
             }),
       );
@@ -86,9 +97,9 @@ class _SubjectsViewState extends State<SubjectsScreen> {
         Navigator.of(context).pushNamed(AppRoutes.menu);
       },
       child: Scaffold(
-        backgroundColor: appColors[6],
+        backgroundColor: AppColors().colors[6],
         appBar: AppBar(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           centerTitle: true,
           leading: new Container(),
           title: Text(
@@ -107,7 +118,7 @@ class _SubjectsViewState extends State<SubjectsScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           child: Icon(Icons.add, size: 40),
           onPressed: () {
             Navigator.of(context).pushNamed(AppRoutes.register_subject);

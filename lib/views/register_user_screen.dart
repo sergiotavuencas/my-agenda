@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/routes.dart';
+import 'package:my_agenda/theme/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class _RegisterViewState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(content: Text('Log-in with your new account', style: GoogleFonts.robotoSlab(fontSize: 20)));
+
     final usernameField = TextFormField(
       controller: _usernameController,
       style: TextStyle(
@@ -126,7 +130,7 @@ class _RegisterViewState extends State<RegisterScreen> {
 
     final registerButton = Material(
       elevation: 5.0,
-      borderRadius: BorderRadius.circular(25.0),
+      borderRadius: BorderRadius.circular(30.0),
       color: Colors.white,
       child: MaterialButton(
         minWidth: 60,
@@ -146,11 +150,13 @@ class _RegisterViewState extends State<RegisterScreen> {
                 (await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: _emailController.text,
               password: _passwordController.text,
-            )).user;
+            ))
+                    .user;
 
             if (user != null) {
               user.updateProfile(displayName: _usernameController.text);
-              Navigator.of(context).pushNamed(AppRoutes.menu);
+              Navigator.of(context).pushNamed(AppRoutes.login);
+              ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
             }
           } catch (e) {
             print(e);
@@ -198,7 +204,7 @@ class _RegisterViewState extends State<RegisterScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Color(0xff8c52ff),
+      backgroundColor: AppColors().colors[6],
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

@@ -11,12 +11,11 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuViewState extends State<MenuScreen> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(content: Text('Logged out', style: GoogleFonts.robotoSlab(fontSize: 20)));
     final String userName = auth.currentUser.displayName;
 
     final profileIcon = Material(
@@ -28,7 +27,7 @@ class _MenuViewState extends State<MenuScreen> {
         child: Text(
           userName[0],
           style: GoogleFonts.robotoSlab(
-            color: appColors[0],
+            color: AppColors().colors[0],
             fontSize: 100,
             fontWeight: FontWeight.bold,
           ),
@@ -39,7 +38,7 @@ class _MenuViewState extends State<MenuScreen> {
     final datesButton = Material(
       borderRadius: BorderRadius.circular(30),
       elevation: 10,
-      color: appColors[1],
+      color: AppColors().colors[1],
       child: MaterialButton(
         minWidth: 300,
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -47,14 +46,13 @@ class _MenuViewState extends State<MenuScreen> {
           children: [
             Icon(FontAwesomeIcons.calendarAlt, color: Colors.white),
             Container(
-              margin: const EdgeInsets.only( left: 50.0 , right: 50.0),
+              margin: const EdgeInsets.only(left: 50.0, right: 50.0),
               child: Text(
                 "Dates",
-                style:  GoogleFonts.robotoSlab(
-                  fontSize: 30, 
-                  color: Colors.white, 
-                  fontWeight: FontWeight.bold
-                ),
+                style: GoogleFonts.robotoSlab(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Icon(FontAwesomeIcons.angleRight, color: Colors.white),
@@ -69,7 +67,7 @@ class _MenuViewState extends State<MenuScreen> {
     final subjectsButton = Material(
       borderRadius: BorderRadius.circular(30),
       elevation: 10,
-      color: appColors[3],
+      color: AppColors().colors[3],
       child: MaterialButton(
         minWidth: 300,
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -77,14 +75,13 @@ class _MenuViewState extends State<MenuScreen> {
           children: [
             Icon(FontAwesomeIcons.list, color: Colors.white),
             Container(
-              margin: const EdgeInsets.only( left: 35.0 , right: 35.0),
+              margin: const EdgeInsets.only(left: 35.0, right: 35.0),
               child: Text(
                 "Subjects",
-                style:  GoogleFonts.robotoSlab(
-                  fontSize: 30, 
-                  color: Colors.white, 
-                  fontWeight: FontWeight.bold
-                ),
+                style: GoogleFonts.robotoSlab(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Icon(FontAwesomeIcons.angleRight, color: Colors.white),
@@ -100,7 +97,7 @@ class _MenuViewState extends State<MenuScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           leading: new Container(),
           actions: [
             IconButton(
@@ -109,10 +106,11 @@ class _MenuViewState extends State<MenuScreen> {
                   print('exit');
                   auth.signOut();
                   Navigator.pushReplacementNamed(context, "/");
+                  ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
                 })
           ],
         ),
-        backgroundColor: appColors[5],
+        backgroundColor: AppColors().colors[5],
         body: Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(

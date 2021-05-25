@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/routes.dart';
 import 'package:my_agenda/theme/app_colors.dart';
@@ -12,24 +13,48 @@ class RegisterSubjectScreen extends StatefulWidget {
 }
 
 class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
 
   String _collection;
   String _type;
   String _date;
+  TimeOfDay _time;
 
   String subject;
   String weekDay;
-  String hour;
+  TimeOfDay pickedTime;
   String meetingLink;
 
   @override
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(
+        content: Text('Added a new Subject',
+            style: GoogleFonts.robotoSlab(fontSize: 20)));
+
     _collection = auth.currentUser.uid;
     _type = "Subjects";
     _date = (new DateTime.now()).toString();
+
+    List<String> weekDays = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
+
+    Future<Null> selectTime(BuildContext context) async {
+      pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      setState(() {
+        _time = pickedTime;
+      });
+    }
 
     final subjectField = Container(
       width: 325,
@@ -65,65 +90,29 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
 
     final weekDayField = Container(
         width: 325,
-        child: TextField(
-          decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          hintText: "Monday",
-          labelText: "Week Day",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-          onChanged: (value) {
-            if (value == "") {
-              setState(() {
-                weekDay = null;
-              });
-            } else {
-              setState(() {
-                weekDay = value;
-              });
-            }
-          },
-        ));
-
-    final hourField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          hintText: "20h00",
-          labelText: "Hour",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              hour = null;
-            });
-          } else {
-            setState(() {
-              hour = value;
-            });
-          }
-        },
-      ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton(
+              dropdownColor: AppColors().colors[2],
+              value: weekDay,
+              onChanged: (newValue) {
+                setState(() {
+                  weekDay = newValue;
+                });
+              },
+              items: weekDays.map((location) {
+                return DropdownMenuItem(
+                  child: new Text(
+                    location, 
+                    style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white)
+                  ),
+                  value: location,
+                );
+              }).toList(),
+            )
+          ],
+        )
     );
 
     final meetingLinkField = Container(
@@ -158,10 +147,43 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
       ),
     );
 
+    final timeField = Material(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.transparent,
+      child: Row(
+        children: <Widget>[
+          MaterialButton(
+              minWidth: 100,
+              height: 50,
+              color: AppColors().colors[2],
+              child: Icon(FontAwesomeIcons.clock, color: Colors.white),
+              onPressed: () {
+                selectTime(context);
+              }),
+          Container(
+              width: 200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    pickedTime == null
+                        ? 'Pick a time'
+                        : (_time.hour.toString().length <= 1 ? "0" + _time.hour.toString() : _time.hour.toString()) + ":" 
+                        + (_time.minute.toString().length <= 1 ? "0" + _time.minute.toString() : _time.minute.toString()),
+                    style: GoogleFonts.robotoSlab(
+                        fontSize: 30, color: Colors.white),
+                        
+                  ),
+                ],
+              )),
+        ],
+      ),
+    );
+
     final saveButton = Material(
       elevation: 15,
       borderRadius: BorderRadius.circular(30),
-      color: appColors[0],
+      color: AppColors().colors[0],
       child: MaterialButton(
         minWidth: 250,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
@@ -178,7 +200,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
         onPressed: () async {
           if (subject != null &&
               weekDay != null &&
-              hour != null &&
+              pickedTime.toString() != 'Pick a time' &&
               meetingLink != null) {
             FirebaseFirestore.instance
                 .collection(_type + "-" + _collection)
@@ -186,13 +208,16 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
                 .set({
                   "subject": subject,
                   "weekDay": weekDay,
-                  "hour": hour,
+                  "hour": pickedTime.hour.toString() +
+                      ":" +
+                      pickedTime.minute.toString(),
                   "meetingLink": meetingLink,
                 })
                 .then((value) => print("foi"))
                 .catchError((error) => print(error));
 
             Navigator.of(context).pushNamed(AppRoutes.subjects);
+            ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
           }
         },
       ),
@@ -204,9 +229,15 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           subjectField,
-            weekDayField,
-            hourField,
-            meetingLinkField,
+          meetingLinkField,
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+            child: weekDayField
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+            child: timeField,
+          ),
         ],
       ),
     );
@@ -216,9 +247,9 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
         Navigator.of(context).pushNamed(AppRoutes.subjects);
       },
       child: Scaffold(
-        backgroundColor: appColors[7],
+        backgroundColor: AppColors().colors[7],
         appBar: AppBar(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           centerTitle: true,
           leading: new Container(),
           title: Text(

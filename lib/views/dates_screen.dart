@@ -12,8 +12,6 @@ class DatesScreen extends StatefulWidget {
 }
 
 class _DatesViewState extends State<DatesScreen> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
 
   String _collection;
@@ -30,7 +28,7 @@ class _DatesViewState extends State<DatesScreen> {
                 child: Material(
                   elevation: 10,
                   borderRadius: BorderRadius.circular(40),
-                  color: appColors[2],
+                  color: AppColors().colors[2],
                   child: Container(
                     width: 230,
                     padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -69,7 +67,8 @@ class _DatesViewState extends State<DatesScreen> {
                             ),
                           ],
                         ),
-                        Icon(FontAwesomeIcons.angleLeft, size: 20, color: Colors.transparent),
+                        Icon(FontAwesomeIcons.angleLeft,
+                            size: 20, color: Colors.transparent),
                       ],
                     ),
                   ),
@@ -84,7 +83,21 @@ class _DatesViewState extends State<DatesScreen> {
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) return new Text("No documents");
+              if (!snapshot.hasData) {
+                return new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Searching...",
+                      style: GoogleFonts.robotoSlab(
+                        fontSize: 30,
+                        color: Colors.white
+                      ),
+                    )
+                  ],
+                );
+              }
               return new ListView(children: getListItems(snapshot));
             }),
       );
@@ -95,9 +108,9 @@ class _DatesViewState extends State<DatesScreen> {
         Navigator.of(context).pushNamed(AppRoutes.menu);
       },
       child: Scaffold(
-        backgroundColor: appColors[6],
+        backgroundColor: AppColors().colors[6],
         appBar: AppBar(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           centerTitle: true,
           leading: new Container(),
           title: Text(
@@ -116,7 +129,7 @@ class _DatesViewState extends State<DatesScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           child: Icon(Icons.add, size: 40),
           onPressed: () {
             Navigator.of(context).pushNamed(AppRoutes.register_date);

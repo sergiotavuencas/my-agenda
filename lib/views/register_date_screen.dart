@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/routes.dart';
 import 'package:my_agenda/theme/app_colors.dart';
+import 'package:intl/intl.dart';
 
 class RegisterDateScreen extends StatefulWidget {
   @override
@@ -12,8 +14,6 @@ class RegisterDateScreen extends StatefulWidget {
 }
 
 class _RegisterDateViewState extends State<RegisterDateScreen> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
 
   String _collection;
@@ -22,11 +22,15 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
 
   String event;
   String subject;
-  String date;
+  DateTime pickedDate;
   String description;
 
   @override
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(
+        content: Text('Added a new Date',
+            style: GoogleFonts.robotoSlab(fontSize: 20)));
+
     _collection = auth.currentUser.uid;
     _type = "Dates";
     _date = (new DateTime.now()).toString();
@@ -95,38 +99,6 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
       ),
     );
 
-    final dateField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          hintText: "day-month-year",
-          labelText: "Date",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              date = null;
-            });
-          } else {
-            setState(() {
-              date = value;
-            });
-          }
-        },
-      ),
-    );
-
     final descriptionField = Container(
       width: 325,
       child: TextField(
@@ -160,11 +132,52 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
       ),
     );
 
+    final dateField = Material(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.transparent,
+      child: Row(
+        children: <Widget>[
+          MaterialButton(
+              minWidth: 100,
+              height: 50,
+              color: AppColors().colors[2],
+              child: Icon(FontAwesomeIcons.calendarAlt, color: Colors.white),
+              onPressed: () {
+                showDatePicker(
+                        context: context,
+                        initialDate:
+                            DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2022))
+                    .then((date) {
+                  setState(() {
+                    pickedDate = date;
+                  });
+                });
+              }),
+          Container(
+              width: 200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    pickedDate == null
+                        ? 'Pick a date'
+                        : DateFormat('MM-dd-yyyy').format(pickedDate).toString(),
+                    style: GoogleFonts.robotoSlab(
+                        fontSize: 30, color: Colors.white),
+                  ),
+                ],
+              )),
+        ],
+      ),
+    );
+
     final saveButton = Material(
       elevation: 15,
       shadowColor: Colors.black,
       borderRadius: BorderRadius.circular(30),
-      color: appColors[0],
+      color: AppColors().colors[0],
       child: MaterialButton(
         minWidth: 250,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
@@ -180,21 +193,22 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
         onPressed: () async {
           if (event != null &&
               subject != null &&
-              date != null &&
+              pickedDate.toString() != 'Pick a date' &&
               description != null) {
             FirebaseFirestore.instance
                 .collection(_type + "-" + _collection)
-                .doc(_date)
+                .doc(_date.toString())
                 .set({
                   "event": event,
                   "subject": subject,
-                  "date": date,
+                  "date": DateFormat('MM-dd').format(pickedDate),
                   "description": description
                 })
                 .then((value) => print("foi"))
                 .catchError((error) => print(error));
 
             Navigator.of(context).pushNamed(AppRoutes.dates);
+            ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
           }
         },
       ),
@@ -207,8 +221,11 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
         children: <Widget>[
           eventField,
           subjectField,
-          dateField,
           descriptionField,
+          Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: dateField,
+          ),
         ],
       ),
     );
@@ -218,9 +235,9 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
         Navigator.of(context).pushNamed(AppRoutes.dates);
       },
       child: Scaffold(
-        backgroundColor: appColors[7],
+        backgroundColor: AppColors().colors[7],
         appBar: AppBar(
-          backgroundColor: appColors[0],
+          backgroundColor: AppColors().colors[0],
           centerTitle: true,
           leading: new Container(),
           title: Text(

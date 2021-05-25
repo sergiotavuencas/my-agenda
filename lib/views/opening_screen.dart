@@ -13,12 +13,12 @@ class OpeningView extends StatefulWidget {
 }
 
 class OpeningViewState extends State<OpeningView> {
-  List<Color> appColors = AppColors().colors;
-
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(content: Text('Logged in with Google', style: GoogleFonts.robotoSlab(fontSize: 20)));
+
     final logo = Material(
       elevation: 20,
       borderRadius: BorderRadius.circular(90),
@@ -33,9 +33,9 @@ class OpeningViewState extends State<OpeningView> {
     final emailLoginButton = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(30),
-      color: appColors[4],
+      color: AppColors().colors[0],
       child: MaterialButton(
-        minWidth: 230,
+        minWidth: 250,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
@@ -45,7 +45,7 @@ class OpeningViewState extends State<OpeningView> {
               style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              padding: EdgeInsets.only(left: 10),
               child: Icon(
                 Icons.account_circle_rounded,
                 color: Colors.white,
@@ -65,7 +65,7 @@ class OpeningViewState extends State<OpeningView> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.black,
       child: MaterialButton(
-        minWidth: 230,
+        minWidth: 250,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
@@ -75,11 +75,11 @@ class OpeningViewState extends State<OpeningView> {
               style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              padding: EdgeInsets.only(left: 10),
               child: Icon(
                 FontAwesomeIcons.google,
                 color: Colors.white,
-                size: 25,
+                size: 30,
               ),
             )
           ],
@@ -90,6 +90,7 @@ class OpeningViewState extends State<OpeningView> {
 
             if (user != null) {
               Navigator.of(context).pushNamed(AppRoutes.menu);
+              ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
             }
           } catch (e) {
             print("Error on sign-in with Google: " + e);
@@ -99,7 +100,7 @@ class OpeningViewState extends State<OpeningView> {
     );
 
     return Scaffold(
-      backgroundColor: appColors[7],
+      backgroundColor: AppColors().colors[4],
       body: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(

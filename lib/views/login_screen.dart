@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/theme/app_colors.dart';
 import 'package:my_agenda/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,14 +11,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginScreen> {
-  List<Color> appColors = AppColors().colors;
-
-  final _formKey = GlobalKey<FormState>();
+    final _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final snackNotificaion = SnackBar(content: Text('Logged in with Email', style: GoogleFonts.robotoSlab(fontSize: 20)));
+
     final emailField = TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
@@ -28,7 +29,7 @@ class _LoginViewState extends State<LoginScreen> {
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: appColors[0],
+            color: AppColors().colors[0],
           ),
         ),
         hintText: "something@example.com",
@@ -54,7 +55,7 @@ class _LoginViewState extends State<LoginScreen> {
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: appColors[0],
+                color: AppColors().colors[0],
               ),
             ),
             hintText: "password",
@@ -86,7 +87,7 @@ class _LoginViewState extends State<LoginScreen> {
 
     final loginButton = Material(
       elevation: 5.0,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(30),
       color: Colors.white,
       child: MaterialButton(
         minWidth: 225,
@@ -112,6 +113,7 @@ class _LoginViewState extends State<LoginScreen> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.setString('displayName', user.displayName);
                 Navigator.of(context).pushNamed(AppRoutes.menu);
+                ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
               }
           } catch (e) {
             print(e);
@@ -158,7 +160,7 @@ class _LoginViewState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      backgroundColor: appColors[6],
+      backgroundColor: AppColors().colors[5],
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
