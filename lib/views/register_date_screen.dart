@@ -35,100 +35,91 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
     _type = "Dates";
     _date = (new DateTime.now()).toString();
 
-    final eventField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
+    final eventField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Math exam'
             ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  event = null;
+                });
+              } else {
+                setState(() {
+                  event = value;
+                });
+              }
+            },
           ),
-          hintText: "Math Project",
-          labelText: "Event",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              event = null;
-            });
-          } else {
-            setState(() {
-              event = value;
-            });
-          }
-        },
+        )
       ),
     );
 
-    final subjectField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
+    final subjectField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Math'
             ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  subject = null;
+                });
+              } else {
+                setState(() {
+                  subject = value;
+                });
+              }
+            },
           ),
-          hintText: "Math",
-          labelText: "Subject",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              subject = null;
-            });
-          } else {
-            setState(() {
-              subject = value;
-            });
-          }
-        },
+        )
       ),
     );
 
-    final descriptionField = Container(
-      width: 325,
-      child: TextField(
-        maxLines: 2,
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
+    final descriptionField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(35),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            maxLines: 2,
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Study sum'
             ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  description = null;
+                });
+              } else {
+                setState(() {
+                  description = value;
+                });
+              }
+            },
           ),
-          hintText: "Write only the answers",
-          labelText: "Description",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              description = null;
-            });
-          } else {
-            setState(() {
-              description = value;
-            });
-          }
-        },
+        )
       ),
     );
 
@@ -177,16 +168,16 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
       elevation: 15,
       shadowColor: Colors.black,
       borderRadius: BorderRadius.circular(30),
-      color: AppColors().colors[0],
+      color: Colors.white,
       child: MaterialButton(
-        minWidth: 250,
+        minWidth: 300,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Column(
           children: [
             Text(
               "Add Date",
               textAlign: TextAlign.center,
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -219,8 +210,30 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Row(
+            children: [
+              Text(
+                "Event",
+                style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+              ),
+            ],
+          ),
           eventField,
+          Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Text(
+              "Subject",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            ),
+          ),
           subjectField,
+          Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Text(
+              "Description",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            ),
+          ),
           descriptionField,
           Padding(
             padding: EdgeInsets.only(top: 30),
@@ -254,7 +267,7 @@ class _RegisterDateViewState extends State<RegisterDateScreen> {
               children: [
                 fields,
                 Padding(
-                  padding: EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.only(top: 30),
                   child: saveButton,
                 ),
               ],

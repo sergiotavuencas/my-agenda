@@ -56,35 +56,32 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
       });
     }
 
-    final subjectField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
+    final subjectField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Math'
             ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  subject = null;
+                });
+              } else {
+                setState(() {
+                  subject = value;
+                });
+              }
+            },
           ),
-          hintText: "Math",
-          labelText: "Subject",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              subject = null;
-            });
-          } else {
-            setState(() {
-              subject = value;
-            });
-          }
-        },
+        )
       ),
     );
 
@@ -105,7 +102,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
                 ),
             ),
             DropdownButton(
-              dropdownColor: AppColors().colors[2],
+              dropdownColor: AppColors().colors[5],
               value: weekDay,
               onChanged: (newValue) {
                 setState(() {
@@ -127,35 +124,32 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
       ),
     );
 
-    final meetingLinkField = Container(
-      width: 325,
-      child: TextField(
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
+    final meetingLinkField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'www.meeting.link'
             ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  meetingLink = null;
+                });
+              } else {
+                setState(() {
+                  meetingLink = value;
+                });
+              }
+            },
           ),
-          hintText: "meeting.com",
-          labelText: "Meeting Link",
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        onChanged: (value) {
-          if (value == "") {
-            setState(() {
-              meetingLink = null;
-            });
-          } else {
-            setState(() {
-              meetingLink = value;
-            });
-          }
-        },
+        )
       ),
     );
 
@@ -169,7 +163,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
             child: MaterialButton(
               minWidth: 50,
               height: 50,
-              color: AppColors().colors[5],
+              color: AppColors().colors[2],
               child: Icon(FontAwesomeIcons.clock, color: Colors.white),
               onPressed: () {
                 selectTime(context);
@@ -200,9 +194,9 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
     final saveButton = Material(
       elevation: 15,
       borderRadius: BorderRadius.circular(30),
-      color: AppColors().colors[0],
+      color: Colors.white,
       child: MaterialButton(
-        minWidth: 250,
+        minWidth: 300,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +204,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
             Text(
               "Add Subject",
               textAlign: TextAlign.center,
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -225,9 +219,8 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
                 .set({
                   "subject": subject,
                   "weekDay": weekDay,
-                  "hour": pickedTime.hour.toString() +
-                      ":" +
-                      pickedTime.minute.toString(),
+                  "hour": (_time.hour.toString().length <= 1 ? "0" + _time.hour.toString() : _time.hour.toString()) + ":" 
+                        + (_time.minute.toString().length <= 1 ? "0" + _time.minute.toString() : _time.minute.toString()),
                   "meetingLink": meetingLink,
                 })
                 .then((value) => print("foi"))
@@ -245,14 +238,28 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "Subject",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           subjectField,
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "Meeting Link",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           meetingLinkField,
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 30),
             child: weekDayField
           ),
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 30),
             child: timeField,
           ),
         ],
@@ -283,7 +290,7 @@ class _RegisterSubjectViewState extends State<RegisterSubjectScreen> {
               children: [
                 fields,
                 Padding(
-                  padding: EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.only(top: 30),
                   child: saveButton,
                 ),
               ],

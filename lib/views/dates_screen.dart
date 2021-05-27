@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_agenda/routes.dart';
 import 'package:my_agenda/theme/app_colors.dart';
@@ -25,54 +24,62 @@ class _DatesViewState extends State<DatesScreen> {
         return snapshot.data.docs
             .map((doc) => new Padding(
                 padding: EdgeInsets.only(top: 20),
-                child: Material(
-                  elevation: 10,
-                  borderRadius: BorderRadius.circular(40),
-                  color: AppColors().colors[2],
-                  child: Container(
-                    width: 230,
-                    padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          doc["date"],
-                          style: GoogleFonts.robotoSlab(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              doc["event"],
-                              style: GoogleFonts.robotoSlab(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Material(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                      color: AppColors().colors[0],
+                      child: Container(
+                        width: 350,
+                        height: 50,
+                        color: Colors.transparent,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              doc["date"],
+                              style: GoogleFonts.robotoSlab(fontSize: 30, color: Colors.white)
                             ),
-                            Text(
-                              doc["subject"],
-                              style: GoogleFonts.robotoSlab(
-                                fontSize: 10,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              doc["description"],
-                              style: GoogleFonts.robotoSlab(
-                                fontSize: 15,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(FontAwesomeIcons.angleLeft,
-                            size: 20, color: Colors.transparent),
-                      ],
+                          )
+                        )
+                      )
                     ),
-                  ),
-                )))
+                    Material(
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                      color: AppColors().colors[2],
+                      child: Container(
+                        width: 350,
+                        child: Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                doc["event"],
+                              style: GoogleFonts.robotoSlab(fontSize: 25, color: Colors.white)
+                              ),
+                              Text(
+                                doc["subject"],
+                              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white)
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15),
+                                child: Text(
+                                  doc["description"],
+                                  style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white)
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      )
+                    ),
+                  ],
+                )
+              )
+            )
             .toList();
       }
 

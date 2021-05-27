@@ -24,44 +24,58 @@ class _SubjectsViewState extends State<SubjectsScreen> {
         return snapshot.data.docs
             .map((doc) => new Padding(
                 padding: EdgeInsets.only(top: 20),
-                child: Material(
-                  elevation: 10,
-                  borderRadius: BorderRadius.circular(80),
-                  color: AppColors().colors[2],
-                  child: Container(
-                    width: 230,
-                    padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          doc["subject"],
-                          style: GoogleFonts.robotoSlab(
-                            fontSize: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          doc["weekDay"] + " " + doc["hour"],
-                          style: GoogleFonts.robotoSlab(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: SelectableText(
-                            doc["meetingLink"],
-                            style: GoogleFonts.robotoSlab(
-                              fontSize: 20,
-                              color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Material(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                      color: AppColors().colors[0],
+                      child: Container(
+                        width: 350,
+                        height: 50,
+                        color: Colors.transparent,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              doc["subject"],
+                              style: GoogleFonts.robotoSlab(fontSize: 30, color: Colors.white)
                             ),
-                          ),
-                        ),
-                      ],
+                          )
+                        )
+                      )
                     ),
-                  ),
-                )))
+                    Material(
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                      color: AppColors().colors[2],
+                      child: Container(
+                        width: 350,
+                        child: Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                doc["weekDay"] + ", " + doc["hour"],
+                              style: GoogleFonts.robotoSlab(fontSize: 15, color: Colors.white)
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15),
+                                child: SelectableText(
+                                  doc["meetingLink"],
+                                  style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white)
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      )
+                    ),
+                  ],
+                )
+              )
+            )
             .toList();
       }
 

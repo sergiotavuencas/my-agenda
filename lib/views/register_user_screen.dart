@@ -10,108 +10,130 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _repasswordController = TextEditingController();
+  String _userName;
+  String _email;
+  String _password;
+  String _repassword;
 
   @override
   Widget build(BuildContext context) {
-    final snackNotificaion = SnackBar(content: Text('Log-in with your new account', style: GoogleFonts.robotoSlab(fontSize: 20)));
+    final snackNotificaion = SnackBar(
+        content: Text('Log-in with your new account',
+            style: GoogleFonts.robotoSlab(fontSize: 20)));
 
-    final usernameField = TextFormField(
-      controller: _usernameController,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      cursorColor: Colors.white,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white,
+    final usernameField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'John Doe'
+            ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  _userName = null;
+                });
+              } else {
+                setState(() {
+                  _userName = value;
+                });
+              }
+            },
           ),
-        ),
-        hintText: "John Doe",
-        labelText: "Username",
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        )
       ),
     );
 
-    final emailField = TextFormField(
-      controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      cursorColor: Colors.white,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white,
+    final emailField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'user@email.com'
+            ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  _email = null;
+                });
+              } else {
+                setState(() {
+                  _email = value;
+                });
+              }
+            },
           ),
-        ),
-        hintText: "something@example.com",
-        labelText: "Email",
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        )
       ),
     );
 
-    final passwordField = TextFormField(
-      obscureText: true,
-      controller: _passwordController,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      cursorColor: Colors.white,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white,
+    final passwordField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            obscureText: true,
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+            ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  _password = null;
+                });
+              } else {
+                setState(() {
+                  _password = value;
+                });
+              }
+            },
           ),
-        ),
-        hintText: "password",
-        labelText: "Password",
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        )
       ),
     );
 
-    final repasswordField = TextFormField(
-      obscureText: true,
-      controller: _repasswordController,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      cursorColor: Colors.white,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.white,
+    final repasswordField = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        width: 320,
+        child: Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: TextField(
+            obscureText: true,
+            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+            ),
+            onChanged: (value) {
+              if (value == "") {
+                setState(() {
+                  _repassword = null;
+                });
+              } else {
+                setState(() {
+                  _repassword = value;
+                });
+              }
+            },
           ),
-        ),
-        hintText: "password",
-        labelText: "Re-enter Password",
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        )
       ),
     );
 
@@ -120,9 +142,37 @@ class _RegisterViewState extends State<RegisterScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "Username",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           usernameField,
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "E-mail",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           emailField,
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "Password",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           passwordField,
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              "Re-password",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
+            )
+          ),
           repasswordField,
         ],
       ),
@@ -133,97 +183,86 @@ class _RegisterViewState extends State<RegisterScreen> {
       borderRadius: BorderRadius.circular(30.0),
       color: Colors.white,
       child: MaterialButton(
-        minWidth: 60,
+        minWidth: 300,
         padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
         child: Text(
           "Register",
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+          style: GoogleFonts.robotoSlab(
+            fontSize: 20,
+            fontWeight: FontWeight.bold
           ),
         ),
         onPressed: () async {
           try {
-            User user =
-                (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: _emailController.text,
-              password: _passwordController.text,
-            ))
-                    .user;
+            User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: _email,
+              password: _password,
+            )).user;
 
             if (user != null) {
-              user.updateProfile(displayName: _usernameController.text);
+              user.updateProfile(displayName: _userName);
               Navigator.of(context).pushNamed(AppRoutes.login);
               ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
             }
           } catch (e) {
-            print(e);
-            _usernameController.text = "";
-            _passwordController.text = "";
-            _repasswordController.text = "";
-            _emailController.text = "";
+            _userName = "";
+            _password = "";
+            _repassword = "";
+            _email = "";
           }
         },
       ),
     );
 
-    final bottom = Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    final loginButton = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        registerButton,
-        Padding(
-          padding: EdgeInsets.all(8.0),
+        Text(
+          "Already have an account?",
+          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.white )
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              "Already have an account?",
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(AppRoutes.login);
+          },
+          child: Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: Text(
+              "Sign In",
               style: Theme.of(context).textTheme.subtitle1.copyWith(
-                    color: Colors.white,
-                  ),
+                color: Colors.white, 
+                decoration: TextDecoration.underline
+              )
             ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.login);
-              },
-              child: Text(
-                "Login",
-                style: Theme.of(context).textTheme.subtitle1.copyWith(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                    ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        )
       ],
     );
 
     return Scaffold(
-      backgroundColor: AppColors().colors[6],
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(36),
-          child: Container(
-            height: 600,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                fields,
+      backgroundColor: AppColors().colors[5],
+      body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 150),
-                  child: bottom,
+                  padding: EdgeInsets.only(top: 40),
+                  child: fields,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: loginButton,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: registerButton,
                 ),
               ],
-            ),
-          ),
+            )
+          ],
         ),
-      ),
     );
   }
 }

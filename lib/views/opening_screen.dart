@@ -30,25 +30,53 @@ class OpeningViewState extends State<OpeningView> {
       ),
     );
 
+    final emailSignUpButton = Material(
+      elevation: 10,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.white,
+      child: MaterialButton(
+        minWidth: 300,
+        padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+        child: Row(
+          children: [
+            Text(
+              "Sign Up with e-mail",
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Icon(
+                Icons.account_circle_rounded,
+                color: Colors.black,
+                size: 30,
+              ),
+            )
+          ],
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(AppRoutes.register_user);
+        },
+      ),
+    );
+
     final emailLoginButton = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(30),
-      color: AppColors().colors[0],
+      color: Colors.white,
       child: MaterialButton(
-        minWidth: 250,
+        minWidth: 300,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
             Text(
               "Login with e-mail",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 15),
               child: Icon(
-                Icons.account_circle_rounded,
-                color: Colors.white,
+                Icons.mail,
+                color: Colors.black,
                 size: 30,
               ),
             )
@@ -65,17 +93,16 @@ class OpeningViewState extends State<OpeningView> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.black,
       child: MaterialButton(
-        minWidth: 250,
+        minWidth: 300,
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
         child: Row(
           children: [
             Text(
               "Login with Google",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white),
+              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 15),
               child: Icon(
                 FontAwesomeIcons.google,
                 color: Colors.white,
@@ -125,6 +152,15 @@ class OpeningViewState extends State<OpeningView> {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: logo,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: emailSignUpButton,
                 ),
               ],
             ),
