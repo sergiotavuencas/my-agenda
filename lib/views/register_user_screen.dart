@@ -25,116 +25,112 @@ class _RegisterViewState extends State<RegisterScreen> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        width: 320,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: TextField(
-            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'John Doe'
+          width: 320,
+          child: Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: TextField(
+              style: GoogleFonts.robotoSlab(
+                  fontSize: 15, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                  border: InputBorder.none, hintText: 'John Doe'),
+              onChanged: (value) {
+                if (value == "") {
+                  setState(() {
+                    _userName = null;
+                  });
+                } else {
+                  setState(() {
+                    _userName = value;
+                  });
+                }
+              },
             ),
-            onChanged: (value) {
-              if (value == "") {
-                setState(() {
-                  _userName = null;
-                });
-              } else {
-                setState(() {
-                  _userName = value;
-                });
-              }
-            },
-          ),
-        )
-      ),
+          )),
     );
 
     final emailField = Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        width: 320,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: TextField(
-            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'user@email.com'
+          width: 320,
+          child: Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: TextField(
+              style: GoogleFonts.robotoSlab(
+                  fontSize: 15, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                  border: InputBorder.none, hintText: 'user@email.com'),
+              onChanged: (value) {
+                if (value == "") {
+                  setState(() {
+                    _email = null;
+                  });
+                } else {
+                  setState(() {
+                    _email = value;
+                  });
+                }
+              },
             ),
-            onChanged: (value) {
-              if (value == "") {
-                setState(() {
-                  _email = null;
-                });
-              } else {
-                setState(() {
-                  _email = value;
-                });
-              }
-            },
-          ),
-        )
-      ),
+          )),
     );
 
     final passwordField = Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        width: 320,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: TextField(
-            obscureText: true,
-            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-              border: InputBorder.none,
+          width: 320,
+          child: Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: TextField(
+              obscureText: true,
+              style: GoogleFonts.robotoSlab(
+                  fontSize: 15, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                if (value == "") {
+                  setState(() {
+                    _password = null;
+                  });
+                } else {
+                  setState(() {
+                    _password = value;
+                  });
+                }
+              },
             ),
-            onChanged: (value) {
-              if (value == "") {
-                setState(() {
-                  _password = null;
-                });
-              } else {
-                setState(() {
-                  _password = value;
-                });
-              }
-            },
-          ),
-        )
-      ),
+          )),
     );
 
     final repasswordField = Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        width: 320,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: TextField(
-            obscureText: true,
-            style: GoogleFonts.robotoSlab(fontSize: 15, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-              border: InputBorder.none,
+          width: 320,
+          child: Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: TextField(
+              obscureText: true,
+              style: GoogleFonts.robotoSlab(
+                  fontSize: 15, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                if (value == "") {
+                  setState(() {
+                    _repassword = null;
+                  });
+                } else {
+                  setState(() {
+                    _repassword = value;
+                  });
+                }
+              },
             ),
-            onChanged: (value) {
-              if (value == "") {
-                setState(() {
-                  _repassword = null;
-                });
-              } else {
-                setState(() {
-                  _repassword = value;
-                });
-              }
-            },
-          ),
-        )
-      ),
+          )),
     );
 
     final fields = Padding(
@@ -143,39 +139,53 @@ class _RegisterViewState extends State<RegisterScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              "Username",
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
-            )
-          ),
+              padding: EdgeInsets.only(top: 10),
+              child: Text("Username",
+                  style: GoogleFonts.robotoSlab(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold))),
           usernameField,
           Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              "E-mail",
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
-            )
-          ),
+              padding: EdgeInsets.only(top: 10),
+              child: Text("E-mail",
+                  style: GoogleFonts.robotoSlab(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold))),
           emailField,
           Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              "Password",
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
-            )
-          ),
+              padding: EdgeInsets.only(top: 10),
+              child: Text("Password",
+                  style: GoogleFonts.robotoSlab(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold))),
           passwordField,
           Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              "Re-password",
-              style: GoogleFonts.robotoSlab(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)
-            )
-          ),
+              padding: EdgeInsets.only(top: 10),
+              child: Text("Re-password",
+                  style: GoogleFonts.robotoSlab(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold))),
           repasswordField,
         ],
       ),
+    );
+
+    final passwordAlert = SnackBar(
+      content: Text(
+        'The passwords does not match',
+        style: GoogleFonts.robotoSlab(fontSize: 20)
+      )
+    );
+
+    final signUpAlert = SnackBar(
+      content: Text(
+        'Error trying to create an account',
+        style: GoogleFonts.robotoSlab(fontSize: 20)
+      )
     );
 
     final registerButton = Material(
@@ -188,28 +198,33 @@ class _RegisterViewState extends State<RegisterScreen> {
         child: Text(
           "Register",
           textAlign: TextAlign.center,
-          style: GoogleFonts.robotoSlab(
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-          ),
+          style:
+              GoogleFonts.robotoSlab(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         onPressed: () async {
           try {
-            User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: _email,
-              password: _password,
-            )).user;
+            if (_repassword == _password) {
+              User user =
+                  (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                email: _email,
+                password: _password,
+              ))
+                      .user;
 
-            if (user != null) {
-              user.updateProfile(displayName: _userName);
-              Navigator.of(context).pushNamed(AppRoutes.login);
-              ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
+              if (user != null) {
+                user.updateProfile(displayName: _userName);
+                Navigator.of(context).pushNamed(AppRoutes.login);
+                ScaffoldMessenger.of(context).showSnackBar(snackNotificaion);
+              }
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(passwordAlert);
             }
           } catch (e) {
             _userName = "";
             _password = "";
             _repassword = "";
             _email = "";
+            ScaffoldMessenger.of(context).showSnackBar(signUpAlert);
           }
         },
       ),
@@ -218,23 +233,20 @@ class _RegisterViewState extends State<RegisterScreen> {
     final loginButton = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text(
-          "Already have an account?",
-          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.white )
-        ),
+        Text("Already have an account?",
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(color: Colors.white)),
         MaterialButton(
           onPressed: () {
             Navigator.of(context).pushNamed(AppRoutes.login);
           },
           child: Padding(
             padding: EdgeInsets.only(left: 30),
-            child: Text(
-              "Sign In",
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                color: Colors.white, 
-                decoration: TextDecoration.underline
-              )
-            ),
+            child: Text("Sign In",
+                style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    color: Colors.white, decoration: TextDecoration.underline)),
           ),
         )
       ],
@@ -243,26 +255,26 @@ class _RegisterViewState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: AppColors().colors[5],
       body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: fields,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: loginButton,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: registerButton,
-                ),
-              ],
-            )
-          ],
-        ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: fields,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: loginButton,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: registerButton,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
